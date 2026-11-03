@@ -1,0 +1,10 @@
+[package]
+name = "horizon-mod-not-enough-servers"
+version = "0.1.0"
+edition = "2024"
+license = "MIT"
+publish = false
+description = "Not Enough Servers for Horizon 26.3: server pinning, recently played history, category tabs, and a 10-server compact grid."
+
+[lib]
+path = "mixins/not_enough_servers/runtime.rs"

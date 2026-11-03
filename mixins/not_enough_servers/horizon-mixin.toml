@@ -1,0 +1,72 @@
+[mod]
+id = "not_enough_servers"
+version = "0.1.0"
+priority = 100
+
+[compatibility]
+horizon_revision = "9d979caa48a3bb58203319b9ea044db58c38e0d8"
+
+[[module]]
+id = "runtime"
+file = "crates/horizon-client/src/multiplayer.rs"
+name = "native_not_enough_servers"
+source = "runtime.rs"
+visibility = "pub"
+
+[[injection]]
+id = "listed"
+hook = "mods"
+hook_version = 1
+kind = "HEAD"
+helper = "listed.rs"
+bindings = [{ name = "mods", ty = "&mut Vec<crate::game::native_hooks::NativeMod>", value = "&mut *mods" }]
+
+[[injection]]
+id = "mp-list"
+kind = "HEAD"
+cancellable = true
+target = "horizon_client::multiplayer::Screen::list"
+helper = "mp_list.rs"
+bindings = [{ name = "saves", ty = "&Path", value = "saves" }]
+
+[[injection]]
+id = "mp-buttons"
+kind = "HEAD"
+cancellable = true
+target = "horizon_client::multiplayer::Screen::buttons"
+helper = "mp_buttons.rs"
+bindings = [
+  { name = "screen", ty = "&Screen", value = "self" },
+  { name = "w", ty = "f32", value = "w" },
+  { name = "h", ty = "f32", value = "h" },
+]
+
+[[injection]]
+id = "mp-click"
+kind = "HEAD"
+cancellable = true
+target = "horizon_client::multiplayer::Screen::click"
+helper = "mp_click.rs"
+bindings = [
+  { name = "screen", ty = "&mut Screen", value = "&mut *self" },
+  { name = "id", ty = "Option<u8>", value = "id" },
+  { name = "x", ty = "f32", value = "x" },
+  { name = "y", ty = "f32", value = "y" },
+  { name = "size", ty = "(f32, f32)", value = "size" },
+  { name = "saves", ty = "&Path", value = "saves" },
+]
+
+[[injection]]
+id = "mp-draw"
+kind = "HEAD"
+cancellable = true
+target = "horizon_client::multiplayer::Screen::draw"
+helper = "mp_draw.rs"
+bindings = [
+  { name = "screen", ty = "&Screen", value = "self" },
+  { name = "atlas", ty = "&HudAtlas", value = "atlas" },
+  { name = "batch", ty = "&mut HudBatch", value = "&mut *batch" },
+  { name = "caret", ty = "&mut crate::ui::Caret", value = "&mut *caret" },
+  { name = "focused_at", ty = "Instant", value = "focused_at" },
+  { name = "cursor", ty = "(f32, f32)", value = "cursor" },
+]
