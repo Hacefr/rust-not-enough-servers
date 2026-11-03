@@ -1,0 +1,9 @@
+{
+  "schema": 1,
+  "id": "not_enough_servers",
+  "version": "0.1.0",
+  "game": "26.3",
+  "horizon": "25acd993520894142f05af05797864f9e8fa2c74",
+  "mixins": "25acd993520894142f05af05797864f9e8fa2c74",
+  "hooks": 80
+}
